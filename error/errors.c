@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:43:51 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/22 22:08:34 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:18:37 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,8 @@ int	error_map_name(char *str)
 	return (0);
 }
 
+void	ft_error(char *message)
+{
+	ft_putendl_fd(message, STDERR_FILENO);
+	exit(-1);
+}

@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:25 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/23 12:36:31 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/04/23 20:45:48 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int main(int ac, char **av)
 			ft_putstr_fd("invalid filename.", 2);
 		if(init_map(av[1], &fdf))
 			return (1);
-	
+		ft_get_map(av[1], fdf->map)
 	}
 	else
 		ft_putstr_fd("pleas use a test map", 2);

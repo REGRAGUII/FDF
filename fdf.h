@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:29 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/23 12:35:30 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:16:34 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,15 @@
 #define HEIGHT 800
 #define	WIDTH 800
 #include <fcntl.h>
+#include <stdlib.h>
 
 typedef struct s_map_coord
 {
-	int	x;
-	int	y;
-	int	z;
+	int	abscissa;
+	int	ordinate;
+	int altitude_min;
+	int altitude_max;
+	int	***ar;
 	int	color;
 }	t_map_coord;
 
@@ -50,7 +53,10 @@ typedef struct s_coordinate
 	int	z;
 }	t_coordinate;
 
-int	error_map_name(char *str);
+int			error_map_name(char *str);
+void		ft_error(char *message);
+static int	get_height(char *file);
+static int	get_width(char *file)
 
 
 #endif

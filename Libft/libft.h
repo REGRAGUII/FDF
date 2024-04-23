@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 17:42:15 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/21 18:05:19 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:39:38 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_list
 }					t_list;
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 200
 # endif
 
 int					ft_tolower(int x);
