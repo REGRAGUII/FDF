@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:29 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/23 17:16:34 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:12:13 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_coordinate
 int			error_map_name(char *str);
 void		ft_error(char *message);
 static int	get_height(char *file);
-static int	get_width(char *file)
+static int	get_width(char *file);
 
 
 #endif

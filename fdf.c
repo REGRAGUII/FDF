@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:25 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/23 20:45:48 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/04/23 21:46:42 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,5 @@ int main(int ac, char **av)
 	}
 	else
 		ft_putstr_fd("pleas use a test map", 2);
-	
-	
 	return(0);
 }
