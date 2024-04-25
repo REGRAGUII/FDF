@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 17:42:15 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/23 18:39:38 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/04/25 23:01:42 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 void				ft_lstadd_back(t_list **lst, t_list *new);
+unsigned int	ft_atoi_base(const char *str, const char *base);
 
 #endif

@@ -5,8 +5,11 @@ LIBFTDIR = Libft
 FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 LIBS = -L$(LIBFTDIR) -lft -Lmlx -lmlx -framework OpenGL -framework AppKit
 SRCS = \
-		fdf.c \
-		./error/errors.c \
+		./source/fdf.c \
+		./source/errors.c \
+		./source/map_pars.c\
+		./Libft/Libft.a
+
 
 EXEC = fdf
 

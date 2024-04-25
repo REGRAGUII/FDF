@@ -6,7 +6,7 @@
 #    By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 19:13:01 by yregragu          #+#    #+#              #
-#    Updated: 2024/04/21 18:12:44 by yregragu         ###   ########.fr        #
+#    Updated: 2024/04/25 22:59:27 by yregragu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRC    =         ft_strlen.c \
              ft_split.c \
              ft_striteri.c \
              ft_itoa.c \
+             ft_atoi_base.c \
              get_next_line.c \
 
 
