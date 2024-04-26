@@ -6,14 +6,15 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:29 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/25 22:28:42 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/04/26 22:55:00 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-#include "Libft/libft.h"
+#include "../Libft/libft.h"
+#include "../includes/get_next_line.h"
 #include <mlx.h>
 #include <fcntl.h>
 #include <stdlib.h>
@@ -27,8 +28,7 @@ typedef struct s_map_coord
 	int	ordinate;
 	int altitude_min;
 	int altitude_max;
-	int	***matrix;
-	int	color;
+	int	**matrix;
 }	t_map_coord;
 
 typedef struct s_data
@@ -38,8 +38,8 @@ typedef struct s_data
 	void	*img;
 	char	*addr;
 	int		bpp;
-	int		*size_line;
-	int		*endian;	
+	int		size_line;
+	int		endian;	
 	t_map_coord	*map;
 
 } t_data;
@@ -58,12 +58,16 @@ typedef struct s_coordinate
 	int	z;
 }	t_coordinate;
 
-t_data	*ft_initialize(char *filename);
+
+
+char **free_mem(char **str);
+t_data	*ft_initialize(void);
 int			error_map_name(char *str);
 void		ft_error(char *message);
-static int	get_height(char *file, int fd);
-static int	get_width(char *file, int fd);
-static void	ft_get_altitude_min_max(t_map_coord *map);
+int	get_height(int fd);
+int	get_width(int fd);
+void	ft_get_altitude_min_max(t_map_coord *map);
 void	ft_get_map(char *str, t_map_coord *map);
-static void	fill_table(int **matrix, char *line, int abscissa);
+void	fill_table(int **matrix, char *line, int abscissa);
+char	*get_next_line(int fd);
 #endif

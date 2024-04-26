@@ -1,14 +1,16 @@
 CC = cc
 NAME = fdf
-CFLAGS = -Wall -Wextra 
+CFLAGS = -Wall -Wextra -fsanitize=address
 LIBFTDIR = Libft
 FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 LIBS = -L$(LIBFTDIR) -lft -Lmlx -lmlx -framework OpenGL -framework AppKit
 SRCS = \
 		./source/fdf.c \
 		./source/errors.c \
-		./source/map_pars.c\
-		./Libft/Libft.a
+		./source/map_pars.c \
+		./Libft/Libft.a \
+		./source/get_next_line.c \
+		./source/get_next_line_utils.c \
 
 
 EXEC = fdf

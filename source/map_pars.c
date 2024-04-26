@@ -6,13 +6,28 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:36:19 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/25 23:07:11 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/04/26 23:06:13 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fdf.h"
+#include "../includes/fdf.h"
 
-static int	get_height(char *file, int fd)
+char **free_mem(char **str)
+{
+	int	i;
+	
+	i = -1;
+	if (str)
+	{
+		while (str[++i])
+			free(str[i]);
+		free(str);
+	}
+	return (NULL);
+}
+
+
+int	get_height(int fd)
 {
 	char *line;
 	int height;
@@ -21,46 +36,61 @@ static int	get_height(char *file, int fd)
 	line = get_next_line(fd);
 	if(!line)
 		ft_error("reading line error");
-	while(get_next_line(fd))
+	while(line)
 	{
-		height++;
 		free(line);
+		line = get_next_line(fd);
+		height++;
 	}
 	free(line);
+	if(close(fd) == -1)
+		ft_error("close error <height>");
 	return(height);
 }
 
-
-static int	get_width(char *file, int fd)
+int	get_width(int fd)
 {
 	int		width;
 	char	*line;
 	int		i;
+	char	**str;
 
 	i = 0;
 	width = 0;
 	line = get_next_line(fd);
-	if (*line == '\0')
+	if (!line)
 		ft_error("invalid map (empty)");
-	while (line[i])
+	str = ft_split(line, ' ');
+	while (str[i])
 	{
-		if (line[i] != ' ' && (line[i + 1] == ' ' || line[i + 1] == '\0'))
+		if(!ft_strchr(str[i], '\n'))
 			width++;
 		i++;
 	}
 	free(line);
+	str = free_mem(str);
+	if(close(fd) == -1)
+		ft_error("close error <width>");
 	return (width);	
 }
-
-static void	fill_table(int **matrix, char *line, int abscissa)
+void	print_table(int **matrix)
+{
+	int i =0;
+	while (/* condition */)
+	{
+		/* code */
+	}
+	
+}
+void	fill_table(int **matrix, char *line, int abscissa)
 {
 	char	**num;
 	int		i;
 	int		j;
 
 	num = ft_split(line, ' ');
-	i = -1;
-	while (num[++i] && i < abscissa)
+	i = 0;
+	while (num[i] && i < abscissa)
 	{
 		matrix[i] = malloc(sizeof(int) * 2);
 		if (!matrix[i])
@@ -74,29 +104,30 @@ static void	fill_table(int **matrix, char *line, int abscissa)
 		else
 			matrix[i][1] = -1;
 		free(num[i]);
+		i++;
 	}
 	if (i != abscissa || num[i])
 		ft_error("error: fdf file has irregular width");
 	free(num);
 }
 
-static void	ft_get_altitude_min_max(t_map_coord *map)
+void	ft_get_altitude_min_max(t_map_coord *map)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	map->altitude_min = map->matrix[0][0][0];
-	map->altitude_max = map->matrix[0][0][0];
+	map->altitude_min = 0;
+	map->altitude_max = 0;
 	while (i < map->ordinate)
 	{
 		j = 0;
 		while (j < map->abscissa)
 		{
-			if (map->matrix[i][j][0] < map->altitude_min)
-				map->altitude_min = map->matrix[i][j][0];
-			if (map->matrix[i][j][0] > map->altitude_max)
-				map->altitude_max = map->matrix[i][j][0];
+			if (map->matrix[i][j] < map->altitude_min)
+				map->altitude_min = map->matrix[i][j];
+			if (map->matrix[i][j] > map->altitude_max)
+				map->altitude_max = map->matrix[i][j];
 			j++;
 		}
 		i++;
@@ -113,18 +144,22 @@ void	ft_get_map(char *str, t_map_coord *map)
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
 		ft_error("open file fail");
-	map->abscissa = get_width(str, fd);
-	map->ordinate = get_height(str, fd);
+	map->ordinate = get_height(fd);
+	fd = open(str, O_RDONLY);
+	printf("ordinat -> %d", map->ordinate);
+	map->abscissa = get_width(fd);
+	printf("abscissa -> %d", map->abscissa);
 	i = -1;
-	map->matrix = malloc(sizeof(int **) * map->ordinate);
+	map->matrix = malloc(sizeof(int *) * map->ordinate);
 	if (!map->matrix)
 		ft_error("malloc error");
-	while (line == get_next_line(fd))
+	line  = get_next_line(fd);
+	while (line)
 	{
-		map->matrix[++i] = malloc(sizeof(int *) * map->abscissa);
+		map->matrix[++i] = malloc(sizeof(int) * map->abscissa);
 		if (!map->matrix[i])
 			ft_error("malloc error");
-		fill_table(map->matrix[i], line, map->abscissa);
+		fill_table(map->matrix, line, map->abscissa);
 		free(line);
 	}
 	free(line);

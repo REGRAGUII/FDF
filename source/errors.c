@@ -6,11 +6,11 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:43:51 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/23 16:18:37 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/04/26 21:47:03 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fdf.h"
+#include "../includes/fdf.h"
 
 int	error_map_name(char *str)
 {

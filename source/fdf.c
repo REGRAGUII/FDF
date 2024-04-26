@@ -6,13 +6,13 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:25 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/25 22:58:22 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/04/26 22:58:57 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fdf.h"
+#include "../includes/fdf.h"
 
-t_data	*ft_initialize(char *filename)
+t_data	*ft_initialize(void)
 {
 	t_data	*fdf1;
 	
@@ -28,17 +28,37 @@ t_data	*ft_initialize(char *filename)
 	fdf1->img = mlx_new_image(fdf1->mlx, WIDTH, HEIGHT);
 	if(!fdf1->img)
 		ft_error("fail in initializing image");
-	fdf1->addr = mlx_get_data_addr(fdf1->mlx, &fdf1->bpp, fdf1->size_line, fdf1->endian); 
-	
+	fdf1->addr = mlx_get_data_addr(fdf1->mlx, &fdf1->bpp, &fdf1->size_line, &fdf1->endian);
+	return(fdf1); 	
 }
+ 
+ static t_map_coord *ft_initmap(void)
+ {
+	t_map_coord	*map;
+	
+	map = (t_map_coord *)malloc(sizeof(t_map_coord));
+	if(!map)
+		ft_error("malloc error for map struct");
+	map->abscissa = 0;
+	map->ordinate = 0;
+	map->altitude_max = 0;
+	map->altitude_max = 0;
+	map->matrix = NULL;
+	return(map);
+ }
  
 int main(int ac, char **av)
 {
 	t_data	*fdf;
-	t_map_coord *map;
 	
-	fdf = ft_initialize(av[1]);
-	ft_get_map(av[1], map);
-	printf("%d, %d, %d, %d, %d", map->abscissa, map->ordinate, map->altitude_max, map->altitude_min);
-	
+	if(ac == 2)
+	{
+		fdf = ft_initialize();
+		fdf->map = ft_initmap();
+		ft_get_map(av[1], fdf->map);
+		printf("%d, %d, %d, %d", fdf->map->abscissa, fdf->map->ordinate, fdf->map->altitude_max, fdf->map->altitude_min);
+	} 
+	else
+		ft_error("please use less argument example: ./fdf <testmap>");
+	system("leaks fdf");
 }
