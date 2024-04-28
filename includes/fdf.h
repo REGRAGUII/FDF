@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:29 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/26 22:55:00 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/04/28 00:31:18 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_map_coord
 	int	ordinate;
 	int altitude_min;
 	int altitude_max;
-	int	**matrix;
+	int	***matrix;
 }	t_map_coord;
 
 typedef struct s_data
@@ -51,23 +51,27 @@ typedef struct s_img
 	int	width;
 }	t_img;
 
-typedef struct s_coordinate
+typedef struct s_3dcoord
 {
 	int	x;
 	int	y;
 	int	z;
-}	t_coordinate;
+}	t_3dcoord;
 
+typedef struct s_2dcoord
+{
+	int	x;
+	int y;
+}	t_2dcoord
 
-
-char **free_mem(char **str);
 t_data	*ft_initialize(void);
-int			error_map_name(char *str);
-void		ft_error(char *message);
-int	get_height(int fd);
-int	get_width(int fd);
+int		error_map_name(char *str);
+void	ft_error(char *message);
+int		get_height(char *filename);
+int		get_width(char *filename);
 void	ft_get_altitude_min_max(t_map_coord *map);
 void	ft_get_map(char *str, t_map_coord *map);
-void	fill_table(int **matrix, char *line, int abscissa);
 char	*get_next_line(int fd);
+void	ft_fill_matrix(t_map_coord *map, char *line);
+void	draw_map(t_data fdf, t_map_coord map);
 #endif

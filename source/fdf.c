@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:25 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/26 22:58:57 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/04/27 23:41:26 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int main(int ac, char **av)
 		fdf = ft_initialize();
 		fdf->map = ft_initmap();
 		ft_get_map(av[1], fdf->map);
-		printf("%d, %d, %d, %d", fdf->map->abscissa, fdf->map->ordinate, fdf->map->altitude_max, fdf->map->altitude_min);
+		draw_map(fdf, fdf->map);
+		mlx_loop(fdf->mlx);
 	} 
 	else
-		ft_error("please use less argument example: ./fdf <testmap>");
-	system("leaks fdf");
+		ft_error("please use less argument example: ./fdf <testmap.fdf>");
 }
