@@ -12,7 +12,6 @@ SRCS = \
 		./source/get_next_line.c \
 		./source/get_next_line_utils.c \
 
-
 EXEC = fdf
 
 all:
