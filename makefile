@@ -10,7 +10,7 @@ SRCS = \
 		./source/get_map.c \
 		./source/get_next_line.c \
 		./source/get_next_line_utils.c \
-		./Libft/Libft.a \
+		# ./Libft/Libft.a \
 
 EXEC = fdf
 

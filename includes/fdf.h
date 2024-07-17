@@ -51,18 +51,18 @@ typedef struct s_img
 	int	width;
 }	t_img;
 
-typedef struct s_3dcoord
-{
-	int	x;
-	int	y;
-	int	z;
-}	t_3dcoord;
+// typedef struct s_3dcoord
+// {
+// 	int	x;
+// 	int	y;
+// 	int	z;
+// }	t_3dcoord;
 
-typedef struct s_2dcoord
-{
-	int	x;
-	int y;
-}	t_2dcoord
+// typedef struct s_2dcoord
+// {
+// 	int	x;
+// 	int y;
+// }	t_2dcoord;
 
 t_data	*ft_initialize(void);
 int		error_map_name(char *str);
@@ -73,5 +73,5 @@ void	ft_get_altitude_min_max(t_map_coord *map);
 void	ft_get_map(char *str, t_map_coord *map);
 char	*get_next_line(int fd);
 void	ft_fill_matrix(t_map_coord *map, char *line);
-void	draw_map(t_data fdf, t_map_coord map);
+void	draw_map(t_data *fdf, t_map_coord map);
 #endif
