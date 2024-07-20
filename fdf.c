@@ -56,7 +56,7 @@ int main(int ac, char **av)
 		fdf = ft_initialize();
 		fdf->map = ft_initmap();
 		ft_get_map(av[1], fdf->map);
-		draw_map(fdf, fdf->map);
+		// draw_map(fdf, fdf->map);
 		mlx_loop(fdf->mlx);
 	} 
 	else

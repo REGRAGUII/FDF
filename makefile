@@ -25,7 +25,7 @@ ${EXEC}: $(OBJS)
 
 
 %.o: %.c
-	$(CC) $(CFLAGS) -L$(LIBFTDIR)  -c $< -o $@
+	$(CC) $(CFLAGS)   -c $< -o $@
 	
 
 clean:
