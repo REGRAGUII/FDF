@@ -1,31 +1,39 @@
 CC = cc
-NAME = fdf
 # CFLAGS = -Wall -Wextra -Werror
 LIBFTDIR = Libft
-FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
-LIBS = -L$(LIBFTDIR) -lft -Lmlx -lmlx -framework OpenGL -framework AppKit
+MLXFLAGS = -Lminilibx-linux -lmlx_Linux -Iminilibx-linux -lXext -lX11 -lm -lz
+
+
 SRCS = \
 		fdf.c \
 		./source/errors.c \
 		./source/get_map.c \
 		./source/get_next_line.c \
 		./source/get_next_line_utils.c \
-		# ./Libft/Libft.a \
 
 EXEC = fdf
 
-all:
-	$(CC) $(FLAGS) $(CFLAGS) -L$(LIBFTDIR) -lft $(SRCS) -o $(NAME)
+OBJS = $(SRCS:.c=.o)
 
+
+
+all:	${EXEC}
+
+${EXEC}: $(OBJS)
+	make -C Libft --silent
+	$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS)  -L$(LIBFTDIR) -lft  -o $(EXEC)
 
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I$(LIBFTDIR)  -I$(MLXDIR) -c $< -o $@
+	$(CC) $(CFLAGS) -L$(LIBFTDIR)  -c $< -o $@
+	
 
 clean:
+	make clean -C Libft
 	rm -f $(OBJS)
 
 fclean: clean
+	make fclean -C Libft
 	rm -f $(EXEC)
 
 re: fclean all

@@ -41,7 +41,7 @@ t_data	*ft_initialize(void)
 		ft_error("malloc error for map struct");
 	map->abscissa = 0;
 	map->ordinate = 0;
-	map->altitude_max = 0;
+	map->altitude_min = 0;
 	map->altitude_max = 0;
 	map->matrix = NULL;
 	return(map);
