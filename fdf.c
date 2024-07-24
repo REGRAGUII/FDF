@@ -57,7 +57,12 @@ int main(int ac, char **av)
 		fdf->map = ft_initmap();
 		ft_get_map(av[1], fdf->map);
 		// draw_map(fdf, fdf->map);
-		mlx_loop(fdf->mlx);
+
+		printf("here abscissa: %i\n", fdf->map->matrix[0][0][1]);
+		// printf("here ordinate: %i\n", fdf->map->altitude_min);
+		// printf("here ")
+
+		// mlx_loop(fdf->mlx);
 	} 
 	else
 		ft_error("please use less argument example: ./fdf <testmap.fdf>");
