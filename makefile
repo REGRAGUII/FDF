@@ -1,4 +1,4 @@
-CC = cc
+CC = cc -g -fsanitize=address
 # CFLAGS = -Wall -Wextra -Werror
 LIBFTDIR = Libft
 MLXFLAGS = -Lminilibx-linux -lmlx_Linux -Iminilibx-linux -lXext -lX11 -lm -lz
@@ -10,6 +10,7 @@ SRCS = \
 		./source/get_map.c \
 		./source/get_next_line.c \
 		./source/get_next_line_utils.c \
+		./source/draw.c \
 
 EXEC = fdf
 

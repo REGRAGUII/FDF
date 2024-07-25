@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youssef <youssef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:29 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/28 00:31:18 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:52:03 by youssef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-#define HEIGHT 800
-#define	WIDTH 800
+#define HEIGHT 1800
+#define	WIDTH 1800
 
 typedef struct s_map_coord
 {
@@ -31,6 +31,7 @@ typedef struct s_map_coord
 	int	***matrix;
 }	t_map_coord;
 
+
 typedef struct s_data
 {
 	void	*win;
@@ -40,6 +41,8 @@ typedef struct s_data
 	int		bpp;
 	int		size_line;
 	int		endian;	
+	int		cnstx;
+	int		cnsty;
 	t_map_coord	*map;
 
 } t_data;
@@ -64,7 +67,7 @@ typedef struct s_img
 // 	int y;
 // }	t_2dcoord;
 
-t_data	*ft_initialize(void);
+void	ft_initialize(t_data *fdf1);
 int		error_map_name(char *str);
 void	ft_error(char *message);
 int		get_height(char *filename);
@@ -73,5 +76,5 @@ void	ft_get_altitude_min_max(t_map_coord *map);
 void	ft_get_map(char *str, t_map_coord *map);
 char	*get_next_line(int fd);
 void	ft_fill_matrix(t_map_coord *map, char *line);
-void	draw_map(t_data *fdf, t_map_coord map);
+void	draw_map(t_data *fdf);
 #endif

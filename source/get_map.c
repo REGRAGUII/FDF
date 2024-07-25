@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: youssef <youssef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:36:19 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/28 00:05:18 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:39:29 by youssef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+int	print_hex(int p)
+{
+	char *str;
+	int i;
+
+	str = "0123456789abcdef";
+	if (p == 0)
+		return (0);
+	while (p)
+	{
+		i *= 16;
+		i = str[p % 16];
+		p /= 16;
+	}
+	return(i);
+}
 
 int	get_height(char *filename)
 {
@@ -60,9 +77,10 @@ int	get_width(char *filename)
 		{
 			width++;
 			while (line[i] && line[i] != '\n' && line[i] != ' ')
-				line++;
+				i++;
 		}
 	}
+	free(line);
 	if(close(fd) == -1)
 		ft_error("close error <width>");
 	return (width);	
@@ -75,12 +93,12 @@ void	ft_fill_matrix(t_map_coord *map, char *line)
 	char	**num;
 	int		i;
 	int		j;
+	char	*tmp;
 	static int x = 0;
 
 	num = ft_split(line, ' ');
-	
-	i = -1;
-	while (num[++i] && i < map->abscissa)
+	i = 0;
+	while (num[i] && i < map->abscissa)
 	{
 		map->matrix[x][i] = malloc(sizeof(int) * 2);
 		if (!map->matrix[x][i])
@@ -89,11 +107,22 @@ void	ft_fill_matrix(t_map_coord *map, char *line)
 		map->matrix[x][i][0] = ft_atoi(num[i]);
 		while (num[i][j] && num[i][j] != ',')
 			j++;
+		tmp = num[i];
 		if (num[i][j] == ',')
-			map->matrix[x][i][1] = ft_atoi_base(&num[i][++j], "0123456789ABCDEF");
+		{
+			map->matrix[x][i][1] = ft_atoi_base((tmp + j + 1), "0123456789ABCDEF");
+			// if (map->matrix[x][i][1] == 8520965)
+			// {
+				// printf("altitude %d\n", map->matrix[x][i][0]);
+			// 	printf("howwaa\n");
+			// }
+			// printf(" str :%s\n", tmp + j + 1);
+			
+		}
 		else
 			map->matrix[x][i][1] = -1;
 		free(num[i]);
+		i++;
 	}
 	if (i != map->abscissa)
 		ft_error("error: fdf file has irregular width");
@@ -133,24 +162,25 @@ void	ft_get_map(char *filename, t_map_coord *map)
 
 	map->abscissa = get_width(filename);
 	map->ordinate = get_height(filename);
+	
+	
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		ft_error("open error");
 	i = 0;
 	map->matrix = malloc(sizeof(int **) * map->ordinate);
-	line = get_next_line(fd);
-	while (line)
+	if (!map->matrix)
+		ft_error("malloc error");
+	while ((line = get_next_line(fd)) != NULL)
 	{
 		map->matrix[i] = malloc(sizeof(int *) * map->abscissa);
 		if(!map->matrix[i])
 			ft_error("malloc error");
 		ft_fill_matrix(map, line);
 		free(line);
-		line = get_next_line(fd);
 		i++;
 	}
-	free(line);
 	ft_get_altitude_min_max(map);
 	if (close(fd) == -1)
-		ft_error("file close eror");
+		ft_error("file close error");
 }
