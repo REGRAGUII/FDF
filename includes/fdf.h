@@ -6,7 +6,7 @@
 /*   By: youssef <youssef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:29 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/25 18:52:03 by youssef          ###   ########.fr       */
+/*   Updated: 2024/07/27 16:00:13 by youssef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@
 #include "../minilibx-linux/mlx.h"
 #include <fcntl.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define HEIGHT 1800
 #define	WIDTH 1800
+#define PI 3.14159265358979323846
 
 typedef struct s_map_coord
 {

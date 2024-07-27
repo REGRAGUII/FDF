@@ -6,7 +6,7 @@
 /*   By: youssef <youssef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:36:19 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/25 21:39:29 by youssef          ###   ########.fr       */
+/*   Updated: 2024/07/26 17:46:07 by youssef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,16 +109,8 @@ void	ft_fill_matrix(t_map_coord *map, char *line)
 			j++;
 		tmp = num[i];
 		if (num[i][j] == ',')
-		{
 			map->matrix[x][i][1] = ft_atoi_base((tmp + j + 1), "0123456789ABCDEF");
-			// if (map->matrix[x][i][1] == 8520965)
-			// {
-				// printf("altitude %d\n", map->matrix[x][i][0]);
-			// 	printf("howwaa\n");
-			// }
-			// printf(" str :%s\n", tmp + j + 1);
-			
-		}
+
 		else
 			map->matrix[x][i][1] = -1;
 		free(num[i]);
