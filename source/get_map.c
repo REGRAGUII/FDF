@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youssef <youssef@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:36:19 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/26 17:46:07 by youssef          ###   ########.fr       */
+/*   Updated: 2024/07/28 22:57:15 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int	print_hex(int p)
-{
-	char *str;
-	int i;
+// int	print_hex(int p)
+// {
+// 	char *str;
+// 	int i;
 
-	str = "0123456789abcdef";
-	if (p == 0)
-		return (0);
-	while (p)
-	{
-		i *= 16;
-		i = str[p % 16];
-		p /= 16;
-	}
-	return(i);
-}
+// 	str = "0123456789abcdef";
+// 	if (p == 0)
+// 		return (0);
+// 	while (p)
+// 	{
+// 		i *= 16;
+// 		i = str[p % 16];
+// 		p /= 16;
+// 	}
+// 	return(i);
+// }
 
 int	get_height(char *filename)
 {
@@ -110,7 +110,6 @@ void	ft_fill_matrix(t_map_coord *map, char *line)
 		tmp = num[i];
 		if (num[i][j] == ',')
 			map->matrix[x][i][1] = ft_atoi_base((tmp + j + 1), "0123456789ABCDEF");
-
 		else
 			map->matrix[x][i][1] = -1;
 		free(num[i]);
@@ -118,7 +117,6 @@ void	ft_fill_matrix(t_map_coord *map, char *line)
 	}
 	if (i != map->abscissa)
 		ft_error("error: fdf file has irregular width");
-
 	free(num);
 	x++;
 }
@@ -154,8 +152,7 @@ void	ft_get_map(char *filename, t_map_coord *map)
 
 	map->abscissa = get_width(filename);
 	map->ordinate = get_height(filename);
-	
-	
+
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		ft_error("open error");

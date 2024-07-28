@@ -1,4 +1,4 @@
-CC = cc -g -fsanitize=address
+CC = cc -g -fsanitize=address -o3
 # CFLAGS = -Wall -Wextra -Werror
 LIBFTDIR = Libft
 MLXFLAGS = -Lminilibx-linux -lmlx_Linux -Iminilibx-linux -lXext -lX11 -lm -lz
@@ -11,6 +11,7 @@ SRCS = \
 		./source/get_next_line.c \
 		./source/get_next_line_utils.c \
 		./source/draw.c \
+		./source/rotation.c \
 
 EXEC = fdf
 
@@ -30,11 +31,9 @@ ${EXEC}: $(OBJS)
 	
 
 clean:
-	make clean -C Libft
 	rm -f $(OBJS)
 
 fclean: clean
-	make fclean -C Libft
 	rm -f $(EXEC)
 
 re: fclean all

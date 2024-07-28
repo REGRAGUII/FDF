@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youssef <youssef@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 21:47:59 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/25 15:17:35 by youssef          ###   ########.fr       */
+/*   Updated: 2024/07/28 20:37:32 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 
 #include "../includes/get_next_line.h"
-void	ft_free(char **buffer)
 
+void	ft_free(char **buffer)
 {
 	free(*buffer);
 	*buffer = NULL;

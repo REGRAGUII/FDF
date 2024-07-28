@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youssef <youssef@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:29 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/27 16:00:13 by youssef          ###   ########.fr       */
+/*   Updated: 2024/07/28 23:17:01 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,17 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define HEIGHT 1800
-#define	WIDTH 1800
+#define HEIGHT 1080
+#define	WIDTH 1440
 #define PI 3.14159265358979323846
+
+typedef struct s_2dcoord
+{
+	float	x1;
+	float	y1;
+}	t_2dcoord;
+
+
 
 typedef struct s_map_coord
 {
@@ -45,8 +53,9 @@ typedef struct s_data
 	int		endian;	
 	int		cnstx;
 	int		cnsty;
+	int		space;
 	t_map_coord	*map;
-
+	t_2dcoord	*dim;
 } t_data;
 
 typedef struct s_img
@@ -56,18 +65,7 @@ typedef struct s_img
 	int	width;
 }	t_img;
 
-// typedef struct s_3dcoord
-// {
-// 	int	x;
-// 	int	y;
-// 	int	z;
-// }	t_3dcoord;
 
-// typedef struct s_2dcoord
-// {
-// 	int	x;
-// 	int y;
-// }	t_2dcoord;
 
 void	ft_initialize(t_data *fdf1);
 int		error_map_name(char *str);
@@ -79,4 +77,7 @@ void	ft_get_map(char *str, t_map_coord *map);
 char	*get_next_line(int fd);
 void	ft_fill_matrix(t_map_coord *map, char *line);
 void	draw_map(t_data *fdf);
+void	rotate_z(t_2dcoord *dim, int x, int y, int angle);
+void	rotate_x(t_2dcoord *dim, int y, int z, int angle);
+void	rotate_y(t_2dcoord *dim, int x, int z, int angle);
 #endif

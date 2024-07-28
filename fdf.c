@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youssef <youssef@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:25 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/25 18:46:08 by youssef          ###   ########.fr       */
+/*   Updated: 2024/07/28 22:59:47 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,24 @@ void	ft_initialize(t_data *fdf1)
 	if(!fdf1->img)
 		ft_error("fail in initializing image");
 	fdf1->addr = mlx_get_data_addr(fdf1->img, &fdf1->bpp, &fdf1->size_line, &fdf1->endian);
-	// fdf1->cnstx = (fdf1->map->abscissa * 16 - (fdf1->map->abscissa - 1) * 16) / 2;
-	// fdf1->cnsty = (fdf1->map->ordinate * 16 - (fdf1->map->ordinate - 1) * 16) / 2;
 
 }
  
- static t_map_coord *ft_initmap(void)
+ void	ft_initmap(t_data *fdf)
  {
 	t_map_coord	*map;
 	
-	map = (t_map_coord *)malloc(sizeof(t_map_coord));
+	fdf->dim = (t_2dcoord *)malloc(sizeof(t_2dcoord));
+	fdf->map = (t_map_coord *)malloc(sizeof(t_map_coord));
 	if(!map)
 		ft_error("malloc error for map struct");
-	map->abscissa = 0;
-	map->ordinate = 0;
-	map->altitude_min = 0;
-	map->altitude_max = 0;
-	map->matrix = NULL;
-	return(map);
+	fdf->map->abscissa = 0;
+	fdf->map->ordinate = 0;
+	fdf->map->altitude_min = 0;
+	fdf->map->altitude_max = 0;
+	fdf->dim->x1 = 0;
+	fdf->dim->y1 = 0;
+	fdf->map->matrix = NULL;
  }
  
 int main(int ac, char **av)
@@ -55,7 +55,7 @@ int main(int ac, char **av)
 	if(ac == 2)
 	{
 		fdf = malloc(sizeof(t_data));
-		fdf->map = ft_initmap();
+		ft_initmap(fdf);
 		ft_get_map(av[1], fdf->map);
 		ft_initialize(fdf);
 		draw_map(fdf);
