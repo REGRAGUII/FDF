@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:29 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/28 23:17:01 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/07/29 23:00:08 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 
 typedef struct s_2dcoord
 {
-	float	x1;
-	float	y1;
+	int	x1;
+	int	y1;
 }	t_2dcoord;
 
 
@@ -77,7 +77,12 @@ void	ft_get_map(char *str, t_map_coord *map);
 char	*get_next_line(int fd);
 void	ft_fill_matrix(t_map_coord *map, char *line);
 void	draw_map(t_data *fdf);
-void	rotate_z(t_2dcoord *dim, int x, int y, int angle);
-void	rotate_x(t_2dcoord *dim, int y, int z, int angle);
+void	isometric(t_data *fdf, int x, int y, int z);
+void	iso_center(t_data *fdf, int x, int y, int z);
+void    bresenham(int x, int y, int next_x, int next_y, t_data *data, int color);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+void	rotate_z(t_2dcoord *dim, float x, float y,int angle);
+void	rotate_x(t_2dcoord *dim, float y, float z, int angle);
 void	rotate_y(t_2dcoord *dim, int x, int z, int angle);
 #endif

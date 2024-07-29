@@ -6,20 +6,21 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:17:26 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/28 23:52:05 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/07/30 00:55:26 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
 
-	dst = data->addr + (y * data->size_line + x * (data->bpp / 8));
-	*(unsigned int*)dst = color;
-}
+// void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+// {
+// 	char	*dst;
+
+// 	dst = data->addr + (y * data->size_line + x * (data->bpp / 8));
+// 	*(unsigned int*)dst = color;
+// }
 
 
 
@@ -39,52 +40,70 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 // }
 void	iso_center(t_data *fdf, int x, int y, int z)
 {
-	int angle;
-	int space;
-	int space0;
+	int		angle;
+	float	space;
+	float	space0;
+	int		tmp;
 
-	space = (HEIGHT / fdf->map->ordinate) * 0.4;
-	space0 = (WIDTH / fdf->map->abscissa) * 0.4;
+	space = (HEIGHT / fdf->map->ordinate) * 0.3;
+	space0 = (WIDTH / fdf->map->abscissa) *0.3;
 
 	if (space > space0)
 		fdf->space = space;
 	else
 		fdf->space = space0;
-	if(fdf->space < 1 || fdf->map->altitude_max - fdf->map->altitude_min >= 20)
+	if(fdf->space < 1 )
 		fdf->space = 2;
 	// if (fdf->map->altitude_max >= 60 || fdf->map->altitude_min <= -59)
-		// fdf->space =  2;
+	// fdf->space =  2;
 	fdf->dim->x1 = x;
 	fdf->dim->y1 = y;
-	rotate_z(fdf->dim, fdf->dim->x1, -fdf->dim->y1, 45);
-	rotate_x(fdf->dim, -fdf->dim->y1, -z , 30);
-	fdf->dim->y1 *= fdf->space;
-	fdf->dim->x1 *= fdf->space;
-	fdf->cnstx = (WIDTH / 2) - fdf->dim->x1;
-	fdf->cnsty = (HEIGHT / 2) - fdf->dim->y1;
 	
+	fdf->dim->x1 *= fdf->space;
+	fdf->dim->y1 *= fdf->space;
+	tmp = fdf->dim->x1;
+	// fdf->dim->x1 = (tmp - fdf->dim->y1) * cos(0.523599);
+	// fdf->dim->y1 = (tmp + fdf->dim->y1) * sin(0.523599) - z;
+	rotate_z(fdf->dim, fdf->dim->x1, -fdf->dim->y1, 45);
+	rotate_x(fdf->dim, -fdf->dim->y1, -z * fdf->space , 30);
+	printf("space : %d\n cnsty : %d\n", fdf->space, fdf->cnsty);
+	fdf->cnstx = (WIDTH / 2) - fdf->dim->x1 ;
+	fdf->cnsty = (HEIGHT / 2) - fdf->dim->y1 ;
+	printf("after cnstx : %d\n cnsty : %d\n", fdf->cnstx, fdf->cnsty);
+	// fdf->dim->x1 = 0;
+	// fdf->dim->y1 = 0;
+	 
 }
 void	isometric(t_data *fdf, int x, int y, int z)
 {
 	int angle;
-	int space;
-	int space0;
-
+	float space;
+	float space0;
+	int tmp;
+	int scale;
 	
+	if (fdf->map->altitude_max > HEIGHT)
+		scale = HEIGHT / 2;
+	else 
+		scale = 1;
 	fdf->dim->x1 = x;
 	fdf->dim->y1 = y;
+	fdf->dim->x1 *= fdf->space;
+	fdf->dim->y1 *= fdf->space;
 	
+	tmp = fdf->dim->x1;
+	// fdf->dim->x1 = (tmp - fdf->dim->y1) * cos(0.523599);
+	// fdf->dim->y1 = (tmp + fdf->dim->y1) * sin(0.523599) - z * scale ;
 	rotate_z(fdf->dim, fdf->dim->x1, -fdf->dim->y1, 45);
-	rotate_x(fdf->dim, -fdf->dim->y1, -z , 30);
+	rotate_x(fdf->dim, -fdf->dim->y1, -z * fdf->space , 30);
+	fdf->dim->x1 += fdf->cnstx;
+	fdf->dim->y1 += fdf->cnsty;
+	 
 	// else
 	// {
 		// fdf->dim->x1 += (WIDTH / 2) - (fdf->map->abscissa * fdf->space / 2);
 		// fdf->dim->y1 += (HEIGHT / 2) - (fdf->map->ordinate * fdf->space / 2);
 	// }
-	fdf->dim->y1 *= fdf->space;
-	fdf->dim->x1 *= fdf->space;
-	fdf->dim->x1 += fdf->cnstx;
-	fdf->dim->y1 += fdf->cnsty;
 
 }
 
@@ -95,7 +114,11 @@ void draw_map(t_data *fdf)
     int color;
 	int	z;
 	int	center;
+	int	temx;
+	int	temy;
 
+	temy = 0;
+	temx = 0;
 	center = 0;
 	x = 0;
 	y = 0;
@@ -113,18 +136,29 @@ void draw_map(t_data *fdf)
 			if(color == -1)
 				color = 0xFFFFFF;
 			// printf("color is  %d \n",color);
-			// mlx_pixel_put(fdf->mlx, fdf->win, x , y, color);
-			isometric(fdf, x, y, z);
 			// x1 = x;
 			// y1 = y;
-	
+			temx = x;
+			temy = y + 1;
+			temx = (temx * cos(rad(45)) - temy * sin(rad(45)));
+			temy  = (temx * sin(rad(45)) + temy * cos(rad(45)));
+			temy = (temy * sin(rad(30)) + z * cos(rad(30)));
+
+			// if((x + 1) < fdf->map->abscissa)
+			isometric(fdf,x,y,z);
+				bresenham(fdf->dim->x1 , fdf->dim->y1, temx, temy, fdf, color);
+			// if((y + 1) < fdf->map->ordinate)
+			// 	bresenham(x, y, temx, temy, fdf, color);
+			// mlx_pixel_put(fdf->mlx , fdf->win, x , y, color);
 			// fdf->dim->x1 += 10  ;
 			// fdf->dim->y1 += 10;
 			// printf("x : %f || y : %f\n", x1, y1);
-			if (fdf->dim->x1 > 0 && fdf->dim->y1 > 0 && (fdf->dim->x1 <= WIDTH && fdf->dim->y1 <= HEIGHT ))
-				my_mlx_pixel_put(fdf, fdf->dim->x1, fdf->dim->y1, color);
 			
-            // mlx_pixel_put(fdf->mlx, fdf->win, fdf->dim->x1, fdf->dim->y1, color);
+			// isometric(fdf, x, y, z);
+			// if (fdf->dim->x1 > 0 && fdf->dim->y1 > 0 && (fdf->dim->x1 <= WIDTH && fdf->dim->y1 <= HEIGHT ))
+				// my_mlx_pixel_put(fdf, fdf->dim->x1, fdf->dim->y1, color);
+            
+			// mlx_pixel_put(fdf->mlx, fdf->win, fdf->dim->x1, fdf->dim->y1, color);
 			// printf("x1 %f\n", fdf->dim->x1 );
 			// printf("y1 %f\n", fdf->dim->y1);
 			x++;

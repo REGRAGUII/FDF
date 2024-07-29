@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:25 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/28 22:59:47 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:05:09 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	ft_initialize(t_data *fdf1)
 	fdf->map->altitude_max = 0;
 	fdf->dim->x1 = 0;
 	fdf->dim->y1 = 0;
+	fdf->cnstx = 0;
+	fdf->cnsty = 0;
 	fdf->map->matrix = NULL;
  }
  

@@ -12,6 +12,7 @@ SRCS = \
 		./source/get_next_line_utils.c \
 		./source/draw.c \
 		./source/rotation.c \
+		./source/bresenham.c \
 
 EXEC = fdf
 
