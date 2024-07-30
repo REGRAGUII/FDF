@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:29 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/29 23:00:08 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:41:54 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ void	ft_fill_matrix(t_map_coord *map, char *line);
 void	draw_map(t_data *fdf);
 void	isometric(t_data *fdf, int x, int y, int z);
 void	iso_center(t_data *fdf, int x, int y, int z);
-void    bresenham(int x, int y, int next_x, int next_y, t_data *data, int color);
+// void    bresenham(int x, int y, int next_x, int next_y, t_data *data, int color);
+ void    bresenham( int x0, int y0, int x1, int y1, t_data *data, int color);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 void	rotate_z(t_2dcoord *dim, float x, float y,int angle);

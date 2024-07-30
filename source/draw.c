@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:17:26 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/30 00:55:26 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:47:50 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,25 +138,37 @@ void draw_map(t_data *fdf)
 			// printf("color is  %d \n",color);
 			// x1 = x;
 			// y1 = y;
-			temx = x;
+			temx = x + 1;
 			temy = y + 1;
-			temx = (temx * cos(rad(45)) - temy * sin(rad(45)));
-			temy  = (temx * sin(rad(45)) + temy * cos(rad(45)));
-			temy = (temy * sin(rad(30)) + z * cos(rad(30)));
-
-			// if((x + 1) < fdf->map->abscissa)
-			isometric(fdf,x,y,z);
-				bresenham(fdf->dim->x1 , fdf->dim->y1, temx, temy, fdf, color);
-			// if((y + 1) < fdf->map->ordinate)
-			// 	bresenham(x, y, temx, temy, fdf, color);
+			// temx = (temx * cos(rad(45)) - temy * sin(rad(45)));
+			// temy  = (temx * sin(rad(45)) + temy * cos(rad(45)));
+			// temy = (temy * sin(rad(30)) + z * cos(rad(30)));
+			
+			if((x + 1) < fdf->map->abscissa)
+			{
+				isometric(fdf,x,y ,z);
+				temx = fdf->dim->x1;
+				temy = fdf->dim->y1;
+				isometric(fdf,x + 1,y,fdf->map->matrix[y][x + 1][0]);
+				printf("from x : %d, y : %d  to x : %d , y %d \n\n",temx, temy, fdf->dim->x1, fdf->dim->y1);
+				bresenham(temx,temy, fdf->dim->x1 , fdf->dim->y1,fdf, color);
+			}
+			if((y + 1) < fdf->map->ordinate)
+			{
+				isometric(fdf,x,y,z);
+				temx = fdf->dim->x1;
+				temy = fdf->dim->y1;
+				isometric(fdf,x,y + 1,fdf->map->matrix[y + 1][x][0]);
+					bresenham(temx, temy, fdf->dim->x1, fdf->dim->y1, fdf, color);
+			}
 			// mlx_pixel_put(fdf->mlx , fdf->win, x , y, color);
 			// fdf->dim->x1 += 10  ;
 			// fdf->dim->y1 += 10;
 			// printf("x : %f || y : %f\n", x1, y1);
 			
 			// isometric(fdf, x, y, z);
-			// if (fdf->dim->x1 > 0 && fdf->dim->y1 > 0 && (fdf->dim->x1 <= WIDTH && fdf->dim->y1 <= HEIGHT ))
-				// my_mlx_pixel_put(fdf, fdf->dim->x1, fdf->dim->y1, color);
+			// my_mlx_pixel_put(fdf, fdf->dim->x1, fdf->dim->y1, color);
+			// if (x == 2 )
             
 			// mlx_pixel_put(fdf->mlx, fdf->win, fdf->dim->x1, fdf->dim->y1, color);
 			// printf("x1 %f\n", fdf->dim->x1 );

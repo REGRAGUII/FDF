@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:03:58 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/30 00:49:28 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:48:53 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,32 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void	slope_less(int x, int y, int dx, int dy, t_data *data, int color)
 {
-	int p;
+	float p;
 	int i;
 
 	i = 0;
- 	p = 2 * abs(dy) - abs(dx);
+ 	p = 2 * dy - dx;
 	// if (fdf->dim->x1 > 0 && fdf->dim->y1 > 0 && (fdf->dim->x1 <= WIDTH && fdf->dim->y1 <= HEIGHT ))
 	// isometric(data, x, y, data->map->matrix[y][x][0]);
 	// x = data->dim->x1;
 	// y = data->dim->y1;
 	my_mlx_pixel_put(data, x, y, color);
 	// mlx_pixel_put(data->mlx, data->win, x, y, color);
-	while (i < abs(dx))
+	while (i < dx)
  	{
 		if (dx > 0)
   			x += 1;
 		else
 			x -= 1;
 		if (p < 0)
-			p = p + 2 * abs(dy);
+			p = p + 2 * dy;
 		else
 		{
 			if(dy > 0)
 				y += 1;
 			else
 				y -= 1;
-			p = p + 2 * abs(dy) - 2 * abs(dx);
+			p = p + 2 * dy - 2 * dx;
 		}
 		// if(y < data->map->ordinate)
 		// {
@@ -63,7 +63,7 @@ void	slope_less(int x, int y, int dx, int dy, t_data *data, int color)
 }
 void	slope_big(int x, int y, int dx, int dy, t_data *data, int color)
 {
- 	int p;
+ 	float p;
  	int i;
 	
  	i = 0;
@@ -95,22 +95,47 @@ void	slope_big(int x, int y, int dx, int dy, t_data *data, int color)
  	}
 }
 
-
-void    bresenham(int x, int y, int next_x, int next_y, t_data *data, int color)
+ void    bresenham( int x0, int y0, int x1, int y1, t_data *data, int color)
 {
-    int dx;
-    int dy;
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
+    int sx = x0 < x1 ? 1 : -1;
+    int sy = y0 < y1 ? 1 : -1;
+    int err = dx - dy;
 
-	// isometric(data, x, y, data->map->matrix[y][x][0]);
-	// x = data->dim->x1;
-	// y = data->dim->y1;
-	// isometric(data, next_x, next_y, data->map->matrix[next_y][next_x][0]);
-	// next_x = data->dim->x1;
-	// next_y = data->dim->y1;
-    dx = next_x - x;
-    dy = next_y - y;
-    if(dx > dy)
-    	slope_big(x, y, dx, dy, data, color);
-    else
-        slope_less(x, y, dx, dy, data, color);
+    while (1) 
+    {
+        // my_mlx_pixel_put(data, x0, y0, color);
+		if (x0 > 0 && y0 > 0 && x0 <= WIDTH && y0 <= HEIGHT )
+	        my_mlx_pixel_put(data, x0, y0, color);
+        if (x0 == x1 && y0 == y1)
+            break;
+        int e2 = err * 2;
+        if (e2 > -dy) {
+            err -= dy;
+            x0 += sx;
+        }
+        if (e2 < dx) {
+            err += dx;
+            y0 += sy;
+        }
+    }
 }
+// void    bresenham(int x, int y, int next_x, int next_y, t_data *data, int color)
+// {
+//     int dx;
+//     int dy;
+
+// 	// isometric(data, x, y, data->map->matrix[y][x][0]);
+// 	// x = data->dim->x1;
+// 	// y = data->dim->y1;
+// 	// isometric(data, next_x, next_y, data->map->matrix[next_y][next_x][0]);
+// 	// next_x = data->dim->x1;
+// 	// next_y = data->dim->y1;
+//     dx = next_x - x;
+//     dy = next_y - y;
+//     if(dx > dy)
+//     	slope_big(x, y, dx, dy, data, color);
+//     else
+//         slope_less(x, y, dx, dy, data, color);
+// }
