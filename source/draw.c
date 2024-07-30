@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:17:26 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/30 12:47:50 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:59:33 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	iso_center(t_data *fdf, int x, int y, int z)
 		fdf->space = space0;
 	if(fdf->space < 1 )
 		fdf->space = 2;
-	// if (fdf->map->altitude_max >= 60 || fdf->map->altitude_min <= -59)
-	// fdf->space =  2;
+	else if (fdf->map->altitude_max >= 50 || fdf->map->altitude_min <= -59)
+		fdf->space =  10;
 	fdf->dim->x1 = x;
 	fdf->dim->y1 = y;
 	
