@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:36:19 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/28 22:57:15 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:41:34 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,6 @@ void	ft_get_map(char *filename, t_map_coord *map)
 
 	map->abscissa = get_width(filename);
 	map->ordinate = get_height(filename);
-
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		ft_error("open error");

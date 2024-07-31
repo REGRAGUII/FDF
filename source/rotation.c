@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:26:03 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/29 17:58:20 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:24:04 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	rotate_z(t_2dcoord *dim, float x, float y,int angle)
 {
 	dim->x1 = (x * cos(rad(angle)) - y * sin(rad(angle)));
 	dim->y1 = (x * sin(rad(angle)) + y * cos(rad(angle)));
-    printf("%f\n", rad(angle));
 
 }
 

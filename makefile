@@ -1,5 +1,5 @@
-CC = cc -g -fsanitize=address -o3
-# CFLAGS = -Wall -Wextra -Werror
+CC = cc -o3
+CFLAGS = -Wall -Wextra -Werror
 LIBFTDIR = Libft
 MLXFLAGS = -Lminilibx-linux -lmlx_Linux -Iminilibx-linux -lXext -lX11 -lm -lz
 

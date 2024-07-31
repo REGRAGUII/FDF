@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:03:58 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/30 12:48:53 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:47:57 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	slope_big(int x, int y, int dx, int dy, t_data *data, int color)
 			// y = data->dim->y1;
 			my_mlx_pixel_put(data, x, y, color);
 		// mlx_pixel_put(data->mlx, data->win, x, y, color);
-	
 		i++;
  	}
 }

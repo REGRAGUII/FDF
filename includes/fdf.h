@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:35:29 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/30 12:41:54 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:06:12 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_data
 	int		endian;	
 	int		cnstx;
 	int		cnsty;
-	int		space;
+	float	space;
 	t_map_coord	*map;
 	t_2dcoord	*dim;
 } t_data;
