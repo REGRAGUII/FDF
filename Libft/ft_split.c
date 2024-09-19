@@ -6,13 +6,13 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:37:16 by yregragu          #+#    #+#             */
-/*   Updated: 2023/12/09 22:17:34 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/08/03 14:15:21 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int	tokenizer(const char *str, char sep)
+static int	tokenizer(const char *str, char sep)
 {
 	int	i;
 	int	count;
@@ -21,6 +21,8 @@ static	int	tokenizer(const char *str, char sep)
 	count = 0;
 	while (str && str[i])
 	{
+		if (str[i] == '\n')
+			break ;
 		if (str[i] != sep)
 		{
 			count++;
@@ -33,7 +35,7 @@ static	int	tokenizer(const char *str, char sep)
 	return (count);
 }
 
-static	char	*wrd_malloc(const char *str, char sep)
+static char	*wrd_malloc(const char *str, char sep)
 {
 	int		i;
 	char	*word;
@@ -48,7 +50,7 @@ static	char	*wrd_malloc(const char *str, char sep)
 	return (word);
 }
 
-static	char	**free_mem(char **buff)
+static char	**free_mem(char **buff)
 {
 	int	i;
 
@@ -73,7 +75,7 @@ char	**ft_split(char const *s, char c)
 	buff = (char **)malloc(sizeof(char *) * (tokenizer(s, c) + 1));
 	if (!buff)
 		return (NULL);
-	while (s && s[i])
+	while (s && s[i] && s[i] != '\n')
 	{
 		if (s[i] != c)
 		{

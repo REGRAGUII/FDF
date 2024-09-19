@@ -6,52 +6,30 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:36:19 by yregragu          #+#    #+#             */
-/*   Updated: 2024/07/30 13:41:34 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:47:54 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-// int	print_hex(int p)
-// {
-// 	char *str;
-// 	int i;
-
-// 	str = "0123456789abcdef";
-// 	if (p == 0)
-// 		return (0);
-// 	while (p)
-// 	{
-// 		i *= 16;
-// 		i = str[p % 16];
-// 		p /= 16;
-// 	}
-// 	return(i);
-// }
-
 int	get_height(char *filename)
 {
-	char *line;
-	int height;
-	int fd;
+	char	*line;
+	int		height;
+	int		fd;
 
 	height = 0;
 	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		ft_error("open error");
 	line = get_next_line(fd);
-	if(!line)
-		ft_error("reading line error");
-	while(line)
+	while (line)
 	{
 		free(line);
 		line = get_next_line(fd);
 		height++;
 	}
 	free(line);
-	if(close(fd) == -1)
-		ft_error("close error <height>");
-	return(height);
+	close(fd);
+	return (height);
 }
 
 int	get_width(char *filename)
@@ -59,17 +37,13 @@ int	get_width(char *filename)
 	int		width;
 	char	*line;
 	int		i;
-	int 	fd;
+	int		fd;
 
 	i = 0;
 	width = 0;
 	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		ft_error("open error");
 	line = get_next_line(fd);
-	if (!line)
-		ft_error("invalid map (empty)");
-	while(line[i] && line[i] != '\n')
+	while (line[i] && line[i] != '\n')
 	{
 		while (line[i] && line[i] != '\n' && line[i] == ' ')
 			i++;
@@ -81,44 +55,36 @@ int	get_width(char *filename)
 		}
 	}
 	free(line);
-	if(close(fd) == -1)
-		ft_error("close error <width>");
-	return (width);	
+	close(fd);
+	return (width);
 }
 
-
-
-void	ft_fill_matrix(t_map_coord *map, char *line)
+void	ft_fill_matrix(t_map_coord *map, int x, char *line)
 {
 	char	**num;
 	int		i;
 	int		j;
 	char	*tmp;
-	static int x = 0;
 
 	num = ft_split(line, ' ');
 	i = 0;
 	while (num[i] && i < map->abscissa)
 	{
 		map->matrix[x][i] = malloc(sizeof(int) * 2);
-		if (!map->matrix[x][i])
-			ft_error("malloc error");
 		j = 0;
 		map->matrix[x][i][0] = ft_atoi(num[i]);
 		while (num[i][j] && num[i][j] != ',')
 			j++;
 		tmp = num[i];
 		if (num[i][j] == ',')
-			map->matrix[x][i][1] = ft_atoi_base((tmp + j + 1), "0123456789ABCDEF");
+			map->matrix[x][i][1] = ft_atoi_base((tmp + j + 1),
+					"0123456789ABCDEF");
 		else
-			map->matrix[x][i][1] = -1;
+			map->matrix[x][i][1] = 0xFFFFFF;
 		free(num[i]);
 		i++;
 	}
-	if (i != map->abscissa)
-		ft_error("error: fdf file has irregular width");
 	free(num);
-	x++;
 }
 
 void	ft_get_altitude_min_max(t_map_coord *map)
@@ -127,6 +93,8 @@ void	ft_get_altitude_min_max(t_map_coord *map)
 	int	j;
 
 	i = 0;
+	map->altitude_min = 0;
+	map->altitude_max = 0;
 	map->altitude_min = map->matrix[0][0][0];
 	map->altitude_max = map->matrix[0][0][0];
 	while (i < map->ordinate)
@@ -144,31 +112,30 @@ void	ft_get_altitude_min_max(t_map_coord *map)
 	}
 }
 
-void	ft_get_map(char *filename, t_map_coord *map)
+void	ft_get_map(char *filename, t_data *fdf)
 {
 	char	*line;
 	int		i;
 	int		fd;
+	int		y;
 
-	map->abscissa = get_width(filename);
-	map->ordinate = get_height(filename);
+	y = 0;
+	fdf->map->abscissa = get_width(filename);
+	fdf->map->ordinate = get_height(filename);
 	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		ft_error("open error");
 	i = 0;
-	map->matrix = malloc(sizeof(int **) * map->ordinate);
-	if (!map->matrix)
-		ft_error("malloc error");
-	while ((line = get_next_line(fd)) != NULL)
+	fdf->map->matrix = malloc(sizeof(int **) * fdf->map->ordinate);
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
-		map->matrix[i] = malloc(sizeof(int *) * map->abscissa);
-		if(!map->matrix[i])
-			ft_error("malloc error");
-		ft_fill_matrix(map, line);
+		fdf->map->matrix[i] = malloc(sizeof(int *) * fdf->map->abscissa);
+		ft_fill_matrix(fdf->map, y, line);
 		free(line);
+		line = get_next_line(fd);
 		i++;
+		y++;
 	}
-	ft_get_altitude_min_max(map);
-	if (close(fd) == -1)
-		ft_error("file close error");
+	free(line);
+	ft_get_altitude_min_max(fdf->map);
+	close(fd);
 }

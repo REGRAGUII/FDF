@@ -1,5 +1,5 @@
-CC = cc -o3
-CFLAGS = -Wall -Wextra -Werror
+CC = cc
+CFLAGS = -Wall -Wextra -Werror 
 LIBFTDIR = Libft
 MLXFLAGS = -Lminilibx-linux -lmlx_Linux -Iminilibx-linux -lXext -lX11 -lm -lz
 
@@ -32,10 +32,12 @@ ${EXEC}: $(OBJS)
 	
 
 clean:
-	rm -f $(OBJS)
+	make clean -C Libft --silent
+	rm -rf $(OBJS)
 
 fclean: clean
-	rm -f $(EXEC)
+	make fclean -C Libft --silent
+	rm -rf $(EXEC)
 
 re: fclean all
 

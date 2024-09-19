@@ -6,7 +6,7 @@
 /*   By: yregragu <yregragu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 17:42:15 by yregragu          #+#    #+#             */
-/*   Updated: 2024/04/26 19:38:49 by yregragu         ###   ########.fr       */
+/*   Updated: 2024/08/01 12:46:03 by yregragu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <unistd.h>
 # include <limits.h>
 # include <fcntl.h>
-
-
 
 typedef struct s_list
 {
